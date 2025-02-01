@@ -23,7 +23,7 @@ jobs:
         run: |
           for file in movies/*.bk2; do
             webp_file="${file%.bk2}.webp"
-            if [[ ! -f webp_file ]]; then
+            if [[ ! -f $webp_file ]]; then
               ./AVHawk/AVHawk.exe --rom AVHawk/fun.smc --movie "$file" --avcommand "-c:v libx264rgb -crf 0 -f mp4" --output dump.mp4
               ./AVHawk/dll/ffmpeg.exe -i dump.mp4 "$webp_file"
             fi
