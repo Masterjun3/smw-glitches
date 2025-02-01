@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BizHawk.WinForms.Controls</name>
+    </assembly>
+    <members>
+        <member name="T:BizHawk.WinForms.Controls.LocSzButtonEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.Button"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.SzButtonEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.Button"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.CheckBoxEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.CheckBoxOrRadioButton"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.Docs">
+            <summary>Static members are dummies, referenced only in docs in order to centralise them.</summary>
+        </member>
+        <member name="F:BizHawk.WinForms.Controls.Docs.Button">
+            <summary>Inherits <see cref="T:System.Windows.Forms.Button"/>.</summary>
+            <seealso cref="F:BizHawk.WinForms.Controls.Docs.TypeNamePrefix">Naming convention for control types</seealso>
+            <seealso cref="T:BizHawk.WinForms.Controls.LocSzButtonEx"/>
+            <seealso cref="T:BizHawk.WinForms.Controls.SzButtonEx"/>
+        </member>
+        <member name="F:BizHawk.WinForms.Controls.Docs.CheckBoxOrRadioButton">
+            <summary>Inherits <see cref="T:System.Windows.Forms.CheckBox"/>/<see cref="T:System.Windows.Forms.RadioButton"/>.</summary>
+            <seealso cref="F:BizHawk.WinForms.Controls.Docs.TypeNamePrefix">Naming convention for control types</seealso>
+            <seealso cref="T:BizHawk.WinForms.Controls.CheckBoxEx"/>
+            <seealso cref="T:BizHawk.WinForms.Controls.RadioButtonEx"/>
+            <seealso cref="T:BizHawk.WinForms.Controls.SzRadioButtonEx"/>
+        </member>
+        <member name="F:BizHawk.WinForms.Controls.Docs.GroupBox">
+            <summary>Inherits <see cref="T:System.Windows.Forms.GroupBox"/>.</summary>
+            <seealso cref="F:BizHawk.WinForms.Controls.Docs.TypeNamePrefix">Naming convention for control types</seealso>
+            <seealso cref="T:BizHawk.WinForms.Controls.LocSzGroupBoxEx"/>
+            <seealso cref="T:BizHawk.WinForms.Controls.SzGroupBoxEx"/>
+        </member>
+        <member name="F:BizHawk.WinForms.Controls.Docs.LabelOrLinkLabel">
+            <summary>Inherits <see cref="T:System.Windows.Forms.Label"/>/<see cref="T:System.Windows.Forms.LinkLabel"/>.</summary>
+            <seealso cref="F:BizHawk.WinForms.Controls.Docs.TypeNamePrefix">Naming convention for control types</seealso>
+            <seealso cref="T:BizHawk.WinForms.Controls.LabelEx"/>
+            <seealso cref="T:BizHawk.WinForms.Controls.LocLabelEx"/>
+            <seealso cref="T:BizHawk.WinForms.Controls.LocSzLabelEx"/>
+            <seealso cref="T:BizHawk.WinForms.Controls.SzLabelEx"/>
+            <seealso cref="T:BizHawk.WinForms.Controls.LocLinkLabelEx"/>
+        </member>
+        <member name="F:BizHawk.WinForms.Controls.Docs.NUD">
+            <summary>Inherits <see cref="T:System.Windows.Forms.NumericUpDown"/>. Only <c>Sz*</c> variants are available.</summary>
+            <seealso cref="F:BizHawk.WinForms.Controls.Docs.TypeNamePrefix">Naming convention for control types</seealso>
+            <seealso cref="T:BizHawk.WinForms.Controls.SzNUDEx"/>
+        </member>
+        <member name="F:BizHawk.WinForms.Controls.Docs.RowsOrColsFLP">
+            <summary>
+            Inherits <see cref="T:System.Windows.Forms.FlowLayoutPanel"/>.
+            <see cref="P:System.Windows.Forms.FlowLayoutPanel.WrapContents"/> is locked to <see langword="true"/> and <see cref="P:System.Windows.Forms.Control.Margin"/> is locked to <see cref="F:System.Windows.Forms.Padding.Empty"/>.
+            <see cref="P:System.Windows.Forms.FlowLayoutPanel.FlowDirection"/> is locked to <see cref="F:System.Windows.Forms.FlowDirection.LeftToRight"/>/<see cref="F:System.Windows.Forms.FlowDirection.TopDown"/> for rows/columns, respectively.
+            </summary>
+            <seealso cref="F:BizHawk.WinForms.Controls.Docs.TypeNamePrefix">Naming convention for control types</seealso>
+            <seealso cref="T:BizHawk.WinForms.Controls.SzColumnsToRightFLP"/>
+            <seealso cref="T:BizHawk.WinForms.Controls.SzRowsToBottomFLP"/>
+        </member>
+        <member name="F:BizHawk.WinForms.Controls.Docs.SingleRowOrColFLP">
+            <summary>
+            Inherits <see cref="T:System.Windows.Forms.FlowLayoutPanel"/>.
+            <see cref="P:System.Windows.Forms.FlowLayoutPanel.WrapContents"/> is locked to <see langword="false"/> and <see cref="P:System.Windows.Forms.Control.Margin"/> is locked to <see cref="F:System.Windows.Forms.Padding.Empty"/>.
+            <see cref="P:System.Windows.Forms.FlowLayoutPanel.FlowDirection"/> is locked to <see cref="F:System.Windows.Forms.FlowDirection.LeftToRight"/>/<see cref="F:System.Windows.Forms.FlowDirection.TopDown"/> for a single row/column, respectively.
+            </summary>
+            <seealso cref="F:BizHawk.WinForms.Controls.Docs.TypeNamePrefix">Naming convention for control types</seealso>
+            <seealso cref="T:BizHawk.WinForms.Controls.SingleColumnFLP"/>
+            <seealso cref="T:BizHawk.WinForms.Controls.LocSingleColumnFLP"/>
+            <seealso cref="T:BizHawk.WinForms.Controls.LocSzSingleColumnFLP"/>
+            <seealso cref="T:BizHawk.WinForms.Controls.SingleRowFLP"/>
+            <seealso cref="T:BizHawk.WinForms.Controls.LocSingleRowFLP"/>
+            <seealso cref="T:BizHawk.WinForms.Controls.LocSzSingleRowFLP"/>
+        </member>
+        <member name="F:BizHawk.WinForms.Controls.Docs.TabPage">
+            <summary>Inherits <see cref="T:System.Windows.Forms.TabPage"/>.</summary>
+            <seealso cref="F:BizHawk.WinForms.Controls.Docs.TypeNamePrefix">Naming convention for control types</seealso>
+            <seealso cref="T:BizHawk.WinForms.Controls.TabPageEx"/>
+        </member>
+        <member name="F:BizHawk.WinForms.Controls.Docs.TextBox">
+            <summary>Inherits <see cref="T:System.Windows.Forms.TextBox"/>. Only <c>Sz*</c> variants are available.</summary>
+            <seealso cref="F:BizHawk.WinForms.Controls.Docs.TypeNamePrefix">Naming convention for control types</seealso>
+            <seealso cref="T:BizHawk.WinForms.Controls.SzTextBoxEx"/>
+        </member>
+        <member name="F:BizHawk.WinForms.Controls.Docs.TypeNamePrefix">
+            <remarks>
+            This project has some naming conventions in regards to type names.
+            <list type="bullet">
+            <item><description><c>Loc*</c> are positionable; instances should set <see cref="P:System.Windows.Forms.Control.Location"/>. The intention is for controls without <c>Loc</c> to be used in <see cref="T:System.Windows.Forms.FlowLayoutPanel">FLPs</see>.</description></item>
+            <item><description><c>Sz*</c> are resizable; instances should set <see cref="P:System.Windows.Forms.Control.Size"/>. <see cref="P:System.Windows.Forms.Control.AutoSize"/> is always set for you, with or without this prefix.</description></item>
+            <item><description>These combine as expected. A type name without any prefix is the most restrictive, having many properties pre-set (which is a double-edged sword as they can't be changed).</description></item>
+            </list>
+            In addition, properties are hidden in the Designer (with <see cref="T:System.ComponentModel.BrowsableAttribute"/>) when they are read-only and their value is clear from the type name.
+            </remarks>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.SzColumnsToRightFLP">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.RowsOrColsFLP"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.SzRowsToBottomFLP">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.RowsOrColsFLP"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.LocSingleColumnFLP">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.SingleRowOrColFLP"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.LocSingleRowFLP">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.SingleRowOrColFLP"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.LocSzSingleColumnFLP">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.SingleRowOrColFLP"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.LocSzSingleRowFLP">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.SingleRowOrColFLP"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.SingleColumnFLP">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.SingleRowOrColFLP"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.SingleRowFLP">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.SingleRowOrColFLP"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.IRadioButtonReadOnlyTracker">
+            <summary>Functions as a write-only collection of <see cref="T:BizHawk.WinForms.Controls.ITrackedRadioButton">ITrackedRadioButtons</see>.</summary>
+            <remarks>Elements should have unique <see cref="P:System.Windows.Forms.Control.Name">Names</see>; breaking this rule is UB, not checked at runtime.</remarks>
+            <seealso cref="T:BizHawk.WinForms.Controls.RadioButtonGroupTracker"/>
+        </member>
+        <member name="P:BizHawk.WinForms.Controls.ITrackedRadioButton.Checked">
+            <remarks>Does not declare a setter intentionally, use <see cref="M:BizHawk.WinForms.Controls.ITrackedRadioButton.UncheckFromTracker"/>.</remarks>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.LocSzGroupBoxEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.GroupBox"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.RadioButtonGroupTracker">
+            <summary>
+            Functions as a collection of <see cref="T:BizHawk.WinForms.Controls.ITrackedRadioButton">ITrackedRadioButtons</see>.<br/>
+            Using this in our custom <see cref="T:System.Windows.Forms.GroupBox">GroupBoxes</see> circumvents the direct-child restriction on radio buttons.
+            With that gone, we're free to use nested <see cref="T:System.Windows.Forms.FlowLayoutPanel">FLPs</see> in our layouts, the cost being the complexity of this class and its related types.
+            </summary>
+            <remarks>Elements should have unique <see cref="P:System.Windows.Forms.Control.Name">Names</see>; breaking this rule is UB, not checked at runtime.</remarks>
+            <inheritdoc cref="T:BizHawk.WinForms.Controls.IRadioButtonReadOnlyTracker"/>
+        </member>
+        <member name="P:BizHawk.WinForms.Controls.RadioButtonGroupTracker.Selection">
+            <value>The selected radio button, or <see langword="null"/> if no button is selected or if the collection is empty.</value>
+        </member>
+        <member name="M:BizHawk.WinForms.Controls.RadioButtonGroupTracker.GetSelectionTagAs``1">
+            <returns>The <see cref="P:System.Windows.Forms.Control.Tag"/> of the selected radio button, cast to <typeparamref name="T"/><c>?</c>, or <see langword="null"/> if no button is selected or if the collection is empty.</returns>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.SzGroupBoxEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.GroupBox"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.LabelEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.LabelOrLinkLabel"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.LocLabelEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.LabelOrLinkLabel"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.LocSzLabelEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.LabelOrLinkLabel"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.SzLabelEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.LabelOrLinkLabel"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.LocLinkLabelEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.LabelOrLinkLabel"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.MenuStripEx">
+            <summary>
+            This class adds on to the functionality provided in <see cref="T:System.Windows.Forms.MenuStrip"/>.
+            </summary>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.StatusStripEx">
+            <summary>
+            This class adds on to the functionality provided in <see cref="T:System.Windows.Forms.StatusStrip"/>.
+            </summary>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.ToolStripEx">
+            <summary>
+            This class adds on to the functionality provided in <see cref="T:System.Windows.Forms.ToolStrip"/>.
+            </summary>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.SzNUDEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.NUD"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.RadioButtonEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.CheckBoxOrRadioButton"/>
+        </member>
+        <member name="P:BizHawk.WinForms.Controls.RadioButtonExBase.CheckedChangedCausedByTracker">
+            <remarks>use to prevent recursion</remarks>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.SzRadioButtonEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.CheckBoxOrRadioButton"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.TabPageEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.TabPage"/>
+        </member>
+        <member name="T:BizHawk.WinForms.Controls.SzTextBoxEx">
+            <inheritdoc cref="F:BizHawk.WinForms.Controls.Docs.TextBox"/>
+        </member>
+        <member name="M:BizHawk.WinForms.Controls.ReflectionCache.EmbeddedResourceStream(System.String)">
+            <exception cref="T:System.ArgumentException">not found</exception>
+        </member>
+    </members>
+</doc>

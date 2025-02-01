@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BizHawk.Bizware.Graphics.Controls</name>
+    </assembly>
+    <members>
+        <member name="F:BizHawk.Bizware.Graphics.Controls.GDIPlusControl._renderTarget">
+            <summary>
+            The render target for rendering to this control
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.Controls.RetainedGraphicsControl">
+            <summary>
+            Adapts a GraphicsControl to gain the power of remembering what was drawn to it, and keeping it presented in response to Paint events
+            </summary>
+        </member>
+        <member name="P:BizHawk.Bizware.Graphics.Controls.RetainedGraphicsControl.Retain">
+            <summary>
+            Control whether rendering goes into the retaining buffer (it's slower) or straight to the viewport.
+            This could be useful as a performance hack, or if someone was very clever, they could wait for a control to get deactivated, enable retaining, and render it one more time.
+            Of course, even better still is to be able to repaint viewports continually, but sometimes that's annoying.
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.Controls.GraphicsControl.AllowTearing(System.Boolean)">
+            <summary>
+            Allows the control to tear when out of vsync
+            Only relevant for D3D11Control currently
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.Controls.GraphicsControl.SetVsync(System.Boolean)">
+            <summary>
+            Sets whether presentation operations on this control will vsync
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.Controls.GraphicsControl.SwapBuffers">
+            <summary>
+            Swaps the buffers for this control.
+            Be aware, the owner IGL's current render target is undefined after calling this
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.Controls.GraphicsControl.Begin">
+            <summary>
+            Makes this control current for rendering operations.
+            Note that at this time, the window size shouldn't change until End() or else something bad might happen
+            Please be aware that this might change the rendering context, meaning that some things you set without calling Begin/End might not be affected
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.Controls.GraphicsControl.End">
+            <summary>
+            Ends rendering on the specified control.
+            NOTE: DO NOT EXPECT TO SEE BEGIN/END CALLED IN PAIRS, STRICTLY.
+            this is more about GL context management than anything else.
+            In particular, don't expect to have End() called before doing certain things. Maybe use SwapBuffers instead
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.Controls.GraphicsControlFactory">
+            <summary>
+            A factory for creating a GraphicsControl based on an IGL
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.Controls.ReflectionCache.EmbeddedResourceStream(System.String)">
+            <exception cref="T:System.ArgumentException">not found</exception>
+        </member>
+    </members>
+</doc>

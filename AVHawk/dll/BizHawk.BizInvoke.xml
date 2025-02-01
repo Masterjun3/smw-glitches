@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BizHawk.BizInvoke</name>
+    </assembly>
+    <members>
+        <member name="T:BizHawk.BizInvoke.BizInvoker.InvokerImpl">
+            <summary>
+            holds information about a proxy implementation, including type and setup hooks
+            </summary>
+        </member>
+        <member name="F:BizHawk.BizInvoke.BizInvoker.Impls">
+            <summary>
+            dictionary of all generated proxy implementations and their base types
+            </summary>
+        </member>
+        <member name="F:BizHawk.BizInvoke.BizInvoker.ImplAssemblyBuilder">
+            <summary>
+            the assembly that all proxies are placed in
+            </summary>
+        </member>
+        <member name="F:BizHawk.BizInvoke.BizInvoker.ImplModuleBuilder">
+            <summary>
+            the module that all proxies are placed in
+            </summary>
+        </member>
+        <member name="F:BizHawk.BizInvoke.BizInvoker.ClassFieldOffset">
+            <summary>
+            How far into a class pointer the first field is.  Different on mono and fw.
+            </summary>
+        </member>
+        <member name="F:BizHawk.BizInvoke.BizInvoker.StringOffset">
+            <summary>
+            How far into a string pointer the first chair is.
+            </summary>
+        </member>
+        <member name="F:BizHawk.BizInvoke.BizInvoker.ValueArrayElementOffset">
+            <summary>
+            How far into a value array type element 0 is.
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.BizInvoker.GetInvoker``1(BizHawk.Common.IImportResolver,BizHawk.BizInvoke.ICallingConventionAdapter)">
+            <summary>
+            get an implementation proxy for an interop class
+            </summary>
+            <typeparam name="T">The class type that represents the DLL</typeparam>
+            <exception cref="T:System.InvalidOperationException"><see cref="M:BizHawk.BizInvoke.BizInvoker.GetInvoker``1(BizHawk.Common.IImportResolver,BizHawk.Common.IMonitor,BizHawk.BizInvoke.ICallingConventionAdapter)"/> overload previously called with <paramref name="dll"/></exception>
+        </member>
+        <member name="M:BizHawk.BizInvoke.BizInvoker.GetInvoker``1(BizHawk.Common.IImportResolver,BizHawk.Common.IMonitor,BizHawk.BizInvoke.ICallingConventionAdapter)">
+            <exception cref="T:System.InvalidOperationException">this method was previously called with <paramref name="dll"/></exception>
+        </member>
+        <member name="M:BizHawk.BizInvoke.BizInvoker.ImplementMethodDelegate(System.Reflection.Emit.TypeBuilder,System.Reflection.MethodInfo,System.Runtime.InteropServices.CallingConvention,System.String,System.Reflection.FieldInfo,System.Boolean)">
+            <summary>
+            create a method implementation that uses GetDelegateForFunctionPointer internally
+            </summary>
+        </member>
+        <member name="F:BizHawk.BizInvoke.BizInvoker.ParameterLoadInfo.NativeType">
+            <summary>
+            The native type for this parameter, to pass to calli
+            </summary>
+        </member>
+        <member name="F:BizHawk.BizInvoke.BizInvoker.ParameterLoadInfo.EmitLoad">
+            <summary>
+            Closure that will actually emit the parameter load to the il stream.  The evaluation stack will
+            already have other parameters on it at this time.
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.BizInvoker.ImplementMethodCalli(System.Reflection.Emit.TypeBuilder,System.Reflection.MethodInfo,System.Runtime.InteropServices.CallingConvention,System.String,System.Reflection.FieldInfo,System.Reflection.FieldInfo)">
+            <summary>
+            create a method implementation that uses calli internally
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.BizInvoker.LoadConstant(System.Reflection.Emit.ILGenerator,System.IntPtr)">
+            <summary>
+            load an IntPtr constant in an IL stream
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.BizInvoker.EmitParamterLoad(System.Reflection.Emit.ILGenerator,System.Int32,System.Type,System.Reflection.FieldInfo)">
+            <summary>
+            emit a single parameter load with unmanaged conversions.  The evaluation stack will be empty when the IL generated here runs,
+            and should end as empty.
+            </summary>
+        </member>
+        <member name="T:BizHawk.BizInvoke.BizImportAttribute">
+            <summary>Indicates that an abstract method is to be proxied by BizInvoker.</summary>
+        </member>
+        <member name="P:BizHawk.BizInvoke.BizImportAttribute.EntryPoint">
+            <remarks>The annotated method's name is used iff <see langword="null"/>.</remarks>
+        </member>
+        <member name="P:BizHawk.BizInvoke.BizImportAttribute.Compatibility">
+            <summary><see langword="true"/> iff a compatibility interop should be used, which is slower but supports more argument types.</summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.BizInvokerUtilities.ComputeClassFirstFieldOffset">
+            <summary>
+            Computes the byte offset of the first field of any class relative to a class pointer.
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.BizInvokerUtilities.ComputeStringOffset">
+            <summary>
+            Compute the byte offset of the first byte of string data (UTF16) relative to a pointer to the string.
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.BizInvokerUtilities.ComputeValueArrayElementOffset">
+            <summary>
+            Compute the offset to the 0th element of an array of value types
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.BizInvokerUtilities.ComputeFieldOffset(System.Reflection.FieldInfo)">
+            <summary>
+            Compute the byte offset of a field relative to a pointer to the class instance.
+            Slow, so cache it if you need it.
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.BizInvokeUtilities.CreateDelegateType(System.Reflection.MethodInfo,System.Runtime.InteropServices.CallingConvention,System.Reflection.Emit.TypeBuilder,System.Reflection.Emit.MethodBuilder@)">
+            <summary>
+            create a delegate type to match a method type
+            </summary>
+            <param name="method">the method to "clone"</param>
+            <param name="nativeCall">native calling convention to use</param>
+            <param name="enclosingType">the type to define this delegate type as a nested type on</param>
+            <param name="invokeMethod">the methodBuilder for the magic Invoke method on the resulting type</param>
+            <returns>the resulting typeBuilder</returns>
+        </member>
+        <member name="M:BizHawk.BizInvoke.BizInvokeUtilities.GetAttributeBuilder(System.Object)">
+            <summary>
+            get an attribute builder to clone an attribute to a delegate type
+            </summary>
+        </member>
+        <member name="T:BizHawk.BizInvoke.ICallingConventionAdapter">
+            <summary>
+            create interop delegates and function pointers for a particular calling convention
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.ICallingConventionAdapter.GetFunctionPointerForDelegate(System.Delegate)">
+            <summary>
+            Like Marshal.GetFunctionPointerForDelegate(), but wraps a thunk around the returned native pointer
+            to adjust the calling convention appropriately
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.ICallingConventionAdapter.GetArrivalFunctionPointer(System.IntPtr,BizHawk.BizInvoke.InvokerParameterInfo,System.Object)">
+            <summary>
+            Like Marshal.GetFunctionPointerForDelegate, but only the unmanaged thunk-to-thunk part, with no
+            managed wrapper involved.  Called "arrival" because it is to be used when the foreign code is calling
+            back into host code.
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.ICallingConventionAdapter.GetDelegateForFunctionPointer(System.IntPtr,System.Type)">
+            <summary>
+            Like Marshal.GetDelegateForFunctionPointer(), but wraps a thunk around the passed native pointer
+            to adjust the calling convention appropriately
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.ICallingConventionAdapter.GetDepartureFunctionPointer(System.IntPtr,BizHawk.BizInvoke.InvokerParameterInfo,System.Object)">
+            <summary>
+            Like Marshal.GetDelegateForFunctionPointer(), but only the unmanaged thunk-to-thunk part, with no
+            managed wrapper involved.static  Called "departure" beause it is to be used when first leaving host
+            code for foreign code.
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.InvokerParameterInfo.#ctor(System.Type)">
+            <exception cref="T:System.InvalidOperationException"><paramref name="delegateType"/> does not inherit <see cref="T:System.Delegate"/></exception>
+        </member>
+        <member name="T:BizHawk.BizInvoke.ICallbackAdjuster">
+            <summary>
+            Abstract over some waterbox functionality, sort of.  TODO: Would this ever make sense for anything else,
+            or maybe it's just actually another CallingConventionAdapter and we're composing them?
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.ICallbackAdjuster.GetCallbackProcAddr(System.IntPtr,System.Int32)">
+            <summary>
+            Returns a thunk over an arrival callback, for the given slot number.  Slots don't have much of
+            any meaning to CallingConvention Adapter; it's just a unique key associated with the callback.
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.ICallbackAdjuster.GetCallinProcAddr(System.IntPtr)">
+            <summary>
+            Returns a thunk over a departure point.
+            </summary>
+        </member>
+        <member name="P:BizHawk.BizInvoke.CallingConventionAdapters.Native">
+            <summary>
+            native (pass-through) calling convention
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.CallingConventionAdapters.MakeWaterbox(System.Collections.Generic.IEnumerable{System.Delegate},BizHawk.BizInvoke.ICallbackAdjuster)">
+            <summary>
+            waterbox calling convention, including thunk handling for stack marshalling
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.CallingConventionAdapters.MakeWaterboxDepartureOnly(BizHawk.BizInvoke.ICallbackAdjuster)">
+            <summary>
+            waterbox calling convention, including thunk handling for stack marshalling.  Can only do callins, not callouts
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.CallingConventionAdapters.GetWaterboxUnsafeUnwrapped">
+            <summary>
+            Get a waterbox calling convention adapater, except no wrapping is done for stack marshalling and callback support.
+            This is very unsafe; any attempts by the guest to call syscalls will crash, and stack hygiene will be all wrong.
+            DO NOT USE THIS.
+            </summary>
+        </member>
+        <member name="T:BizHawk.BizInvoke.CallingConventionAdapters.MsHostSysVGuest">
+            <summary>
+            Calling Convention Adapter for where host code expects msabi and guest code is sysv.
+            Does not handle anything Waterbox specific.
+            </summary>
+        </member>
+        <member name="M:BizHawk.BizInvoke.ReflectionCache.EmbeddedResourceStream(System.String)">
+            <exception cref="T:System.ArgumentException">not found</exception>
+        </member>
+    </members>
+</doc>

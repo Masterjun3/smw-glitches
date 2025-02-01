@@ -1,0 +1,52 @@
+on:
+  push:
+    paths:
+      - 'movies/*.bk2'
+jobs:
+  dump-movie:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PUSH_PAT }}
+
+      - name: Decrypt
+        shell: bash
+        env:
+          FUN_GPG: ${{ secrets.FUN_GPG }}
+        run: |
+          gpg --quiet --batch --yes --decrypt --passphrase="$FUN_GPG" --output AVHawk/fun.smc AVHawk/fun.gpg
+
+      - name: Dump movie with AVHawk
+        shell: bash
+        run: |
+          for file in movies/*.bk2; do
+            webp_file="${file%.bk2}.webp"
+            if [[ ! -f webp_file ]]; then
+              ./AVHawk/AVHawk.exe --rom AVHawk/fun.smc --movie "$file" --avcommand "-c:v libx264rgb -crf 0 -f mp4" --output dump.mp4
+              ./AVHawk/dll/ffmpeg.exe -i dump.mp4 "$webp_file"
+            fi
+          done
+
+      - name: Update README.md
+        shell: bash
+        run: |
+          set +H
+          rm README.md
+          for file in movies/*.bk2; do
+            file_enc=$(printf "$file" | sed 's/ /%%20/g')
+            base_name=$(basename "$file" .bk2)
+            base_name_enc=$(basename "$file_enc" .bk2)
+            printf "### $base_name ([bk2]($file_enc?raw=true))\n" >> README.md
+            printf "![](movies/${base_name_enc}.webp)\n\n" >> README.md
+          done
+
+      - name: Commit and Push files
+        shell: bash
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md movies/*.webp
+          git commit -m "Generate webp files and update README.md"
+          git push

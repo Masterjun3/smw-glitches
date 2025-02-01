@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BizHawk.Client.AVHawk</name>
+    </assembly>
+    <members>
+        <member name="M:BizHawk.Client.AVHawk.Program.CurrentDomain_AssemblyResolve(System.Object,System.ResolveEventArgs)">
+            <remarks>http://www.codeproject.com/Articles/310675/AppDomain-AssemblyResolve-Event-Tips</remarks>
+        </member>
+        <member name="M:BizHawk.Client.AVHawk.ReflectionCache.EmbeddedResourceStream(System.String)">
+            <exception cref="T:System.ArgumentException">not found</exception>
+        </member>
+    </members>
+</doc>

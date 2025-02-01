@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BizHawk.Bizware.Audio</name>
+    </assembly>
+    <members>
+        <member name="M:BizHawk.Bizware.Audio.ReflectionCache.EmbeddedResourceStream(System.String)">
+            <exception cref="T:System.ArgumentException">not found</exception>
+        </member>
+    </members>
+</doc>

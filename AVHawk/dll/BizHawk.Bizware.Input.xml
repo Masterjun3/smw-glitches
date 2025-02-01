@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BizHawk.Bizware.Input</name>
+    </assembly>
+    <members>
+        <member name="T:BizHawk.Bizware.Input.RawKeyInput">
+            <summary>
+            Note: Only 1 window per device class (i.e. keyboards) is actually allowed to RAWINPUT (last one to call RegisterRawInputDevices)
+            So only one instance can actually be used at the same time
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Input.OSTailoredKeyInputAdapter">
+            <summary>
+            Abstract class which only handles keyboard input
+            Uses OS specific functionality, as there is no good cross platform way to do this
+            (Mostly as all the available cross-platform options require a focused window, arg!)
+            TODO: Doesn't work for Wayland yet (must use XWayland, which Wayland users need to use anyways for BizHawk)
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Input.SDL2Gamepad">
+            <summary>
+            SDL2 Gamepad Handler
+            </summary>
+        </member>
+        <member name="F:BizHawk.Bizware.Input.SDL2Gamepad.IsGameController">
+            <summary>Is an SDL_GameController rather than an SDL_Joystick</summary>
+        </member>
+        <member name="F:BizHawk.Bizware.Input.SDL2Gamepad.HasRumble">
+            <summary>Has rumble</summary>
+        </member>
+        <member name="F:BizHawk.Bizware.Input.SDL2Gamepad.ButtonGetters">
+            <summary>Contains name and delegate function for all buttons, hats and axis</summary>
+        </member>
+        <member name="P:BizHawk.Bizware.Input.SDL2Gamepad.InputNamePrefix">
+            <summary>For use in keybind boxes</summary>
+        </member>
+        <member name="P:BizHawk.Bizware.Input.SDL2Gamepad.DeviceIndex">
+            <summary>Device index in SDL</summary>
+        </member>
+        <member name="P:BizHawk.Bizware.Input.SDL2Gamepad.InstanceID">
+            <summary>Instance ID in SDL</summary>
+        </member>
+        <member name="P:BizHawk.Bizware.Input.SDL2Gamepad.DeviceName">
+            <summary>Device name in SDL</summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Input.SDL2Gamepad.SetVibration(System.Int32,System.Int32)">
+            <remarks><paramref name="left"/> and <paramref name="right"/> are in 0..<see cref="F:System.Int32.MaxValue"/></remarks>
+        </member>
+        <member name="M:BizHawk.Bizware.Input.ReflectionCache.EmbeddedResourceStream(System.String)">
+            <exception cref="T:System.ArgumentException">not found</exception>
+        </member>
+    </members>
+</doc>

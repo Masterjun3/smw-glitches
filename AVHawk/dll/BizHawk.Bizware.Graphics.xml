@@ -1,0 +1,657 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BizHawk.Bizware.Graphics</name>
+    </assembly>
+    <members>
+        <member name="T:BizHawk.Bizware.Graphics.BitmapBuffer">
+            <summary>
+            a software-based bitmap, way easier (and faster) to use than .net's built-in bitmap.
+            Only supports a fixed rgba format
+            Even though this is IDisposable, you don't have to worry about disposing it normally (that's only for the Bitmap-mimicking)
+            But you know you can't resist.
+            </summary>
+        </member>
+        <member name="F:BizHawk.Bizware.Graphics.BitmapBuffer.HasAlpha">
+            <summary>
+            Whether this instance should be considered as having alpha (ARGB) or not (XRBG)
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.AsSpan">
+            <summary>same as <see cref="F:BizHawk.Bizware.Graphics.BitmapBuffer.Pixels"/> (<see cref="F:System.Drawing.Imaging.PixelFormat.Format32bppArgb">A8R8G8B8</see>)</summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.LockBits">
+            <exception cref="T:System.InvalidOperationException">already locked</exception>
+            <remarks>TODO add read/write semantic, for wraps</remarks>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.Normalize(System.Boolean)">
+            <summary>
+            Makes sure the alpha channel is clean and optionally y-flips
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.Alphafy(System.Int32)">
+            <summary>
+            transforms tcol to 0,0,0,0
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.Trim">
+            <summary>
+            copies this bitmap and trims out transparent pixels, returning the offset to the topleft pixel
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.Trim(System.Int32@,System.Int32@)">
+            <summary>
+            copies this bitmap and trims out transparent pixels, returning the offset to the topleft pixel
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.Copy(System.Drawing.Rectangle)">
+            <remarks>TODO surely there's a better implementation --yoshi</remarks>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.Pad">
+            <summary>
+            increases dimensions of this bitmap to the next higher power of 2
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.#ctor(System.String,BizHawk.Bizware.Graphics.BitmapLoadOptions)">
+            <summary>
+            Creates a BitmapBuffer image from the specified filename
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.#ctor(System.IO.Stream,BizHawk.Bizware.Graphics.BitmapLoadOptions)">
+            <summary>
+            loads an image (png,bmp,etc) from the specified stream
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.#ctor(System.Drawing.Bitmap,BizHawk.Bizware.Graphics.BitmapLoadOptions)">
+            <summary>
+            Initializes the BitmapBuffer from a System.Drawing.Bitmap
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.#ctor(System.Int32,System.Int32,System.Int32[])">
+            <summary>
+            Initializes a BitmapBuffer --WRAPPED-- from the supplied parameters, which should definitely have a stride==width and be in the standard color format
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.DiscardAlpha">
+            <summary>
+            Suggests that this BitmapBuffer is now XRGB instead of ARGB but doesn't actually change any of the pixels data.
+            Should affect how things get exported from here, though, I think
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.LoadFrom(System.Int32,System.Int32,System.Int32,System.Byte*,BizHawk.Bizware.Graphics.BitmapLoadOptions)">
+            <summary>
+            Loads the BitmapBuffer from a source buffer, which is expected to be the right pixel format
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.PremultiplyColor(System.Int32)">
+            <summary>
+            premultiplies a color
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.#ctor(System.Int32,System.Int32)">
+            <summary>
+            initializes an empty BitmapBuffer, cleared to all 0
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.#ctor">
+            <summary>
+            Makes a new bitmap buffer, in ??? state
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.#ctor(System.Drawing.Size)">
+            <summary>
+            initializes an empty BitmapBuffer, cleared to all 0
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.ClearWithoutAlloc">
+            <summary>
+            clears this instance to (0,0,0,0) -- without allocating a new array (to avoid GC churn)
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.NextHigher(System.Int32)">
+            <summary>
+            returns the next higher power of 2 than the provided value, for rounding up POW2 textures.
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.ToSysdrawingBitmap">
+            <summary>
+            Dumps this BitmapBuffer to a new System.Drawing.Bitmap
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.BitmapBuffer.ToSysdrawingBitmap(System.Drawing.Bitmap)">
+            <summary>
+            Dumps this BitmapBuffer to an existing System.Drawing.Bitmap.
+            Some features of this may not be super fast (in particular, 32bpp to 24bpp conversion; we might fix that later with a customized loop)
+            </summary>
+        </member>
+        <member name="F:BizHawk.Bizware.Graphics.BitmapLoadOptions.ColorKey24bpp">
+            <summary>
+            A callback to be issued when a 24bpp image is detected, which will allow you to return a colorkey
+            </summary>
+        </member>
+        <member name="F:BizHawk.Bizware.Graphics.BitmapLoadOptions.TransparentPalette0">
+            <summary>
+            Specifies whether palette entry 0 (if there is a palette) shall represent transparent (Alpha=0)
+            </summary>
+        </member>
+        <member name="F:BizHawk.Bizware.Graphics.BitmapLoadOptions.CleanupAlpha0">
+            <summary>
+            Specifies whether (r,g,b,0) pixels shall be turned into (0,0,0,0).
+            This is useful for cleaning up junk which you might not know you had littering purely transparent areas, which can mess up a lot of stuff during rendering.
+            </summary>
+        </member>
+        <member name="F:BizHawk.Bizware.Graphics.BitmapLoadOptions.Premultiply">
+            <summary>
+            Applies the Premultiply post-process (not supported yet; and anyway it could be done as it loads for a little speedup, in many cases)
+            </summary>
+        </member>
+        <member name="F:BizHawk.Bizware.Graphics.BitmapLoadOptions.Pad">
+            <summary>
+            Applies Pad() post-process
+            </summary>
+        </member>
+        <member name="F:BizHawk.Bizware.Graphics.BitmapLoadOptions.AllowWrap">
+            <summary>
+            Allows the BitmapBuffer to wrap a System.Drawing.Bitmap, if one is provided for loading.
+            This System.Drawing.Bitmap must be 32bpp and these other options may be valid (since this approach is designed for quickly getting things into textures)
+            Ownership of the bitmap remains with the user.
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.D3D11Resources">
+            <summary>
+            Encapsules all D3D11 resources
+            This is mainly needed as we need to be able to recreate these resources
+            Due to possibly getting a device reset/lost (e.g. from hibernation)
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.IGL_D3D11">
+            <summary>
+            Direct3D11 implementation of the BizwareGL.IGL interface
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGLExtensions.LoadTexture(BizHawk.Bizware.Graphics.IGL,System.String)">
+            <summary>
+            Loads a texture from disk
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGLExtensions.LoadTexture(BizHawk.Bizware.Graphics.IGL,System.IO.Stream)">
+            <summary>
+            Loads a texture from the stream
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGLExtensions.LoadTexture(BizHawk.Bizware.Graphics.IGL,System.Drawing.Bitmap)">
+            <summary>
+            Loads a texture from the System.Drawing.Bitmap
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGLExtensions.LoadTexture(BizHawk.Bizware.Graphics.IGL,BizHawk.Bizware.Graphics.BitmapBuffer)">
+            <summary>
+            Loads a texture from the BitmapBuffer
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGLExtensions.SetViewport(BizHawk.Bizware.Graphics.IGL,System.Int32,System.Int32)">
+            <summary>
+            Sets the viewport (and scissor) according to the provided specifications
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGLExtensions.SetViewport(BizHawk.Bizware.Graphics.IGL,System.Drawing.Size)">
+            <summary>
+            Sets the viewport (and scissor) according to the provided specifications
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGLExtensions.CreateGuiProjectionMatrix(BizHawk.Bizware.Graphics.IGL,System.Drawing.Size)">
+            <summary>
+            Generates a proper 2d othographic projection for the given destination size, suitable for use in a GUI
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGLExtensions.CreateGuiViewMatrix(BizHawk.Bizware.Graphics.IGL,System.Drawing.Size,System.Boolean)">
+            <summary>
+            Generates a proper view transform for a standard 2d ortho projection, including half-pixel jitter if necessary and
+            re-establishing of a normal 2d graphics top-left origin. suitable for use in a GUI
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGuiRendererExtensions.Begin(BizHawk.Bizware.Graphics.IGuiRenderer,System.Drawing.Size)">
+            <summary>
+            Begin rendering, initializing viewport and projections to the given dimensions
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGuiRendererExtensions.Draw(BizHawk.Bizware.Graphics.IGuiRenderer,BizHawk.Bizware.Graphics.ITexture2D)">
+            <summary>
+            Draws the specified texture2d resource.
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGuiRendererExtensions.Draw(BizHawk.Bizware.Graphics.IGuiRenderer,BizHawk.Bizware.Graphics.ITexture2D,System.Single,System.Single)">
+            <summary>
+            Draws the specified texture2d resource with the specified offset.
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGuiRendererExtensions.Draw(BizHawk.Bizware.Graphics.IGuiRenderer,BizHawk.Bizware.Graphics.ITexture2D,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Draws the specified Texture with the specified offset and the specified size. This could be tricky if youve applied other rotate or scale transforms first.
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.ImGuiResourceCache">
+            <summary>
+            Shared resource cache for the ImGui 2D renderer
+            This allows multiple ImGui renderers to share the same cache
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.I2DRenderer">
+            <summary>
+            Interface for 2D rendering, similar to System.Drawing's Graphics
+            Semantically, this must be able to be called at any point
+            This means batching MUST occur
+            As in this case IGL resources can only be used in the ctor, Dispose(), and Render()
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.I2DRenderer.Render(System.Int32,System.Int32)">
+            <summary>
+            Renders any pending draw calls.
+            Returns the result as an ITexture2D.
+            Internally, this may change the bound render target, pipeline, viewport/scissor, and blending state.
+            If this is important, rebind them after calling this.
+            Any rendering occurs after clearing the target texture.
+            If nothing needs to be rendered and the size does not change, the contents are preserved
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.I2DRenderer.Clear">
+            <summary>
+            Clears any pending draw calls.
+            This will also insert a command to clear the target texture.
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.I2DRenderer.Discard">
+            <summary>
+            Discards any pending draw calls.
+            Similar to Clear(), except this won't insert a command to clear the target texture
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.IGL">
+            <summary>
+            This is a wrapper over OpenGL and Direct3D11 to give a uniform interface
+            NOTE: THIS SHOULD NOT BE ASSUMED TO BE THREAD SAFE! Make a new IGL if you want to use it in a new thread. I hope that will work...
+            </summary>
+        </member>
+        <member name="P:BizHawk.Bizware.Graphics.IGL.DispMethodEnum">
+            <summary>
+            Returns the display method represented by this IGL
+            </summary>
+        </member>
+        <member name="P:BizHawk.Bizware.Graphics.IGL.MaxTextureDimension">
+            <summary>
+            Returns the maximum size any dimension of a texture may have
+            This should be set on init, and therefore shouldn't need a graphics context active...
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL.CreateTexture(System.Int32,System.Int32)">
+            <summary>
+            Creates a texture with the specified dimensions
+            The texture will use a clamping address mode and nearest neighbor filtering by default
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL.WrapGLTexture2D(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            In case you already have the texture ID (from an OpenGL emulator gpu core) you can get an ITexture2D with it this way.
+            Otherwise, if this isn't an OpenGL frontend implementation, the core is expected to readback the texture for GetVideoBuffer()
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL.CreateRenderTarget(System.Int32,System.Int32)">
+            <summary>
+            Creates a render target. Only includes a color buffer, and will always be in byte order BGRA (i.e. little endian ARGB)
+            This may unbind a previously bound render target
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL.BindDefaultRenderTarget">
+            <summary>
+            Binds the IGL's default render target (i.e. to the IGL's control)
+            This implicitly unbinds any previously bound IRenderTarget
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL.ClearColor(System.Drawing.Color)">
+            <summary>
+            Clears the currently bound render target with the specified color
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL.CreatePipeline(BizHawk.Bizware.Graphics.PipelineCompileArgs)">
+            <summary>
+            Creates a complete pipeline
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL.BindPipeline(BizHawk.Bizware.Graphics.IPipeline)">
+            <summary>
+            Binds this pipeline as the current used for rendering
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL.EnableBlending">
+            <summary>
+            Enables normal (non-premultiplied) alpha blending.
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL.DisableBlending">
+            <summary>
+            Disables blending (alpha values are copied from the source fragment)
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL.SetViewport(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets the viewport (and scissor) according to the provided specifications
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL.Draw(System.Int32)">
+            <summary>
+            Non-indexed drawing for the currently set pipeline/render target
+            Vertexes must form triangle strips
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL.DrawIndexed(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Indexed drawing for the currently set pipeline/render target
+            Indexes must be 16 bits each
+            Vertexes must form triangle lists
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL.CreateGuiProjectionMatrix(System.Int32,System.Int32)">
+            <summary>
+            Generates a proper 2D othographic projection for the given destination size, suitable for use in a GUI
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL.CreateGuiViewMatrix(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Generates a proper view transform for a standard 2D othographic projection, including half-pixel jitter if necessary
+            and re-establishing of a normal 2D graphics top-left origin. Suitable for use in a GUI
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGuiRenderer.Begin(System.Int32,System.Int32)">
+            <summary>
+            Begin rendering, initializing viewport and projections to the given dimensions
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGuiRenderer.DrawSubrect(BizHawk.Bizware.Graphics.ITexture2D,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Draws a subrectangle from the provided texture. For advanced users only
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGuiRenderer.End">
+            <summary>
+            Ends rendering
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGuiRenderer.Flush">
+            <summary>
+            Use this, if you must do something sneaky to OpenGL without this GuiRenderer knowing.
+            It might be faster than End and Beginning again, and certainly prettier
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGuiRenderer.SetCornerColor(System.Int32,System.Numerics.Vector4)">
+            <summary>
+            Sets the specified corner color (for the gradient effect)
+            </summary>
+            <remarks>(x, y, z, w) is (r, g, b, a)</remarks>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGuiRenderer.SetCornerColors(System.Numerics.Vector4[])">
+            <summary>
+            Sets all four corner colors at once
+            </summary>
+            <remarks>(x, y, z, w) is (r, g, b, a)</remarks>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGuiRenderer.SetDefaultPipeline">
+            <summary>
+            Restores the pipeline to the default
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGuiRenderer.SetPipeline(BizHawk.Bizware.Graphics.IPipeline)">
+            <summary>
+            Sets the pipeline for this GuiRenderer to use. We won't keep possession of it.
+            This pipeline must work in certain ways, which can be discerned by inspecting the built-in one
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IPipeline.SetVertexData(System.IntPtr,System.Int32)">
+            <summary>
+            Sets vertex data for this pipeline
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IPipeline.SetIndexData(System.IntPtr,System.Int32)">
+            <summary>
+            Sets index data for this pipeline
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IPipeline.SetUniformSampler(System.String,BizHawk.Bizware.Graphics.ITexture2D)">
+            <summary>
+            Sets a uniform sampler to use use the provided texture
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IPipeline.SetUniformMatrix(System.String,System.Numerics.Matrix4x4,System.Boolean)">
+            <summary>
+            Sets a uniform value
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IPipeline.SetUniformMatrix(System.String,System.Numerics.Matrix4x4@,System.Boolean)">
+            <summary>
+            Sets a uniform value
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IPipeline.SetUniform(System.String,System.Numerics.Vector4)">
+            <summary>
+            Sets a uniform value
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IPipeline.SetUniform(System.String,System.Numerics.Vector2)">
+            <summary>
+            Sets a uniform value
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IPipeline.SetUniform(System.String,System.Single)">
+            <summary>
+            Sets a uniform value
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IPipeline.SetUniform(System.String,System.Boolean)">
+            <summary>
+            Sets a uniform value
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.IRenderTarget">
+            <summary>
+            A render target, essentially just a 2D texture which can be written as if it was a window
+            As this is effectively a texture, it inherits ITexture2D
+            However, note that semantically the CPU shouldn't be writing to a render target, so LoadFrom might not work!
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IRenderTarget.Bind">
+            <summary>
+            Binds this render target
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.ITexture2D">
+            <summary>
+            A full-scale 2D texture, with mip levels and everything.
+            In OpenGL tradition, this encapsulates the sampler state, as well, which is equal parts annoying and convenient
+            </summary>
+        </member>
+        <member name="P:BizHawk.Bizware.Graphics.ITexture2D.IsUpsideDown">
+            <summary>
+            OpenGL wrapped textures from IGLTextureProvider will be upside down
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.ITexture2D.Resolve">
+            <summary>
+            Resolves the texture into a new BitmapBuffer
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.ITexture2D.LoadFrom(BizHawk.Bizware.Graphics.BitmapBuffer)">
+            <summary>
+            Loads the texture with new data. This isn't supposed to be especially versatile, it just blasts a bitmap buffer into the texture
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.ITexture2D.SetFilterLinear">
+            <summary>
+            Sets the texture's filtering mode to linear
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.ITexture2D.SetFilterNearest">
+            <summary>
+            Sets the texture's filtering mode to nearest neighbor
+            </summary>
+        </member>
+        <member name="F:BizHawk.Bizware.Graphics.MatrixStack.Top">
+            <summary>
+            This is made public for performance reasons, to avoid lame copies of the matrix when necessary. Don't mess it up!
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.MatrixStack.Clear">
+            <summary>
+            Resets the matrix stack to an empty identity matrix stack
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.MatrixStack.Clear(System.Numerics.Matrix4x4)">
+            <summary>
+            Clears the matrix stack and loads the specified value
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.IGL_OpenGL">
+            <summary>
+            OpenGL implementation of the IGL interface
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL_OpenGL.InitGLState">
+            <summary>
+            Should be called once the GL context is created
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.IGL_OpenGL.CreateRenderTarget(System.Int32,System.Int32)">
+            <exception cref="T:System.InvalidOperationException">framebuffer creation unsuccessful</exception>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.OpenGLVersion">
+            <summary>
+            Wraps checking OpenGL versions
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.SavedOpenGLContext">
+            <summary>
+            Helper ref struct for tempoarily saving the current OpenGL context and restoring it
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.SDL2OpenGLContext">
+            <summary>
+            Wraps an SDL2 OpenGL context
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.PipelineCompileArgs">
+            <summary>
+            Defines arguments for compiling a pipeline
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.PipelineCompileArgs.VertexLayoutItem">
+            <summary>
+            Defines an item within a vertex layout
+            This is currently restricted to to either 4 byte floats, or a 32 bit unsigned normalized integer type
+            If this is a 32 bit unsigned normalized type, it must have 4 components
+            </summary>
+            <param name="Name">Name of the item</param>
+            <param name="Components">Number of components in the item (e.g. float2 has 2 components). Only 1-4 components is valid (unless Integer is true, then only 4 is valid)</param>
+            <param name="Offset">Byte offset within the vertex buffer to the item</param>
+            <param name="Usage">Semantic usage</param>
+            <param name="Integer">Indicates if this uses an integer rather than a float</param>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.PipelineCompileArgs.VertexLayoutItem.#ctor(System.String,System.Int32,System.Int32,BizHawk.Bizware.Graphics.AttribUsage,System.Boolean)">
+            <summary>
+            Defines an item within a vertex layout
+            This is currently restricted to to either 4 byte floats, or a 32 bit unsigned normalized integer type
+            If this is a 32 bit unsigned normalized type, it must have 4 components
+            </summary>
+            <param name="Name">Name of the item</param>
+            <param name="Components">Number of components in the item (e.g. float2 has 2 components). Only 1-4 components is valid (unless Integer is true, then only 4 is valid)</param>
+            <param name="Offset">Byte offset within the vertex buffer to the item</param>
+            <param name="Usage">Semantic usage</param>
+            <param name="Integer">Indicates if this uses an integer rather than a float</param>
+        </member>
+        <member name="P:BizHawk.Bizware.Graphics.PipelineCompileArgs.VertexLayoutItem.Name">
+            <summary>Name of the item</summary>
+        </member>
+        <member name="P:BizHawk.Bizware.Graphics.PipelineCompileArgs.VertexLayoutItem.Components">
+            <summary>Number of components in the item (e.g. float2 has 2 components). Only 1-4 components is valid (unless Integer is true, then only 4 is valid)</summary>
+        </member>
+        <member name="P:BizHawk.Bizware.Graphics.PipelineCompileArgs.VertexLayoutItem.Offset">
+            <summary>Byte offset within the vertex buffer to the item</summary>
+        </member>
+        <member name="P:BizHawk.Bizware.Graphics.PipelineCompileArgs.VertexLayoutItem.Usage">
+            <summary>Semantic usage</summary>
+        </member>
+        <member name="P:BizHawk.Bizware.Graphics.PipelineCompileArgs.VertexLayoutItem.Integer">
+            <summary>Indicates if this uses an integer rather than a float</summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.PipelineCompileArgs.ShaderCompileArgs">
+            <summary>
+            Defines arguments for compiling a shader
+            This currently assumes the native shader format
+            </summary>
+            <param name="Source">Source code for the shader</param>
+            <param name="Entry">Entrypoint for this shader</param>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.PipelineCompileArgs.ShaderCompileArgs.#ctor(System.String,System.String)">
+            <summary>
+            Defines arguments for compiling a shader
+            This currently assumes the native shader format
+            </summary>
+            <param name="Source">Source code for the shader</param>
+            <param name="Entry">Entrypoint for this shader</param>
+        </member>
+        <member name="P:BizHawk.Bizware.Graphics.PipelineCompileArgs.ShaderCompileArgs.Source">
+            <summary>Source code for the shader</summary>
+        </member>
+        <member name="P:BizHawk.Bizware.Graphics.PipelineCompileArgs.ShaderCompileArgs.Entry">
+            <summary>Entrypoint for this shader</summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.GDIPlusGuiRenderer.SetCornerColors(System.Numerics.Vector4[])">
+            <exception cref="T:System.ArgumentException"><paramref name="colors"/> does not have exactly <c>4</c> elements</exception>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.GDIPlusGuiRenderer.End">
+            <exception cref="T:System.InvalidOperationException"><see cref="P:BizHawk.Bizware.Graphics.GDIPlusGuiRenderer.IsActive"/> is <see langword="false"/></exception>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.GuiRenderer">
+            <summary>
+            A simple renderer useful for rendering GUI stuff.
+            When doing GUI rendering, run everything through here (if you need a GL feature not done through here, run it through here first)
+            Call Begin, then Draw, then End, and don't use other Renderers or GL calls in the meantime, unless you know what you're doing.
+            This can perform batching (well.. maybe not yet), which is occasionally necessary for drawing large quantities of things.
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.GuiRenderer.SetCornerColors(System.Numerics.Vector4[])">
+            <exception cref="T:System.ArgumentException"><paramref name="colors"/> does not have exactly <c>4</c> elements</exception>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.GuiRenderer.SetPipeline(BizHawk.Bizware.Graphics.IPipeline)">
+            <exception cref="T:System.InvalidOperationException"><see cref="P:BizHawk.Bizware.Graphics.GuiRenderer.IsActive"/> is <see langword="true"/></exception>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.GuiRenderer.Begin(System.Int32,System.Int32)">
+            <exception cref="T:System.InvalidOperationException">no pipeline set (need to call <see cref="M:BizHawk.Bizware.Graphics.GuiRenderer.SetPipeline(BizHawk.Bizware.Graphics.IPipeline)"/>)</exception>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.GuiRenderer.End">
+            <exception cref="T:System.InvalidOperationException"><see cref="P:BizHawk.Bizware.Graphics.GuiRenderer.IsActive"/> is <see langword="false"/></exception>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.ImGui2DRenderer">
+            <summary>
+            Wraps ImGui to create a simple 2D renderer
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.SDLImGui2DRenderer">
+            <summary>
+            Wraps SDL2's software rendering with an ImGui 2D renderer
+            Used for the GDI+ IGL, which doesn't understand vertexes and such
+            </summary>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.StringRenderer.TexCoords">
+            <remarks>TODO can this be a struct? it's only 16o and only used here, in the above dict</remarks>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.StringRenderer.TexCoords.#ctor(System.Single,System.Single,System.Single,System.Single)">
+            <remarks>TODO can this be a struct? it's only 16o and only used here, in the above dict</remarks>
+        </member>
+        <member name="T:BizHawk.Bizware.Graphics.RetroShader">
+            <summary>
+            Handles RetroArch's GLSL shader pass format
+            </summary>
+        </member>
+        <member name="M:BizHawk.Bizware.Graphics.ReflectionCache.EmbeddedResourceStream(System.String)">
+            <exception cref="T:System.ArgumentException">not found</exception>
+        </member>
+    </members>
+</doc>
